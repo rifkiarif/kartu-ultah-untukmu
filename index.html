@@ -10,7 +10,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;600&display=swap');
         
         :root {
-            --bg-color: #7d746d;
+            --bg-color: #6d7d7d;
             --strip-bg: #f2ece8;
             --accent: #4a3f35;
         }
@@ -106,7 +106,7 @@
         <!-- Header -->
         <header class="text-center mb-10">
             <h1 class="text-4xl md:text-5xl font-bold serif mb-2">Birthday Photo Booth</h1>
-            <p class="text-gray-200 italic">Pilih tema bingkai favoritmu dan abadikan momen!</p>
+            <p class="text-gray-200 italic">Abadikan Momen spesialmu!</p>
         </header>
 
         <div class="flex flex-col lg:flex-row gap-12 items-start justify-center">
@@ -152,14 +152,14 @@
 
                     <div class="flex flex-col gap-4 w-full max-w-[400px]">
                         <div class="grid grid-cols-2 gap-3">
-                            <input type="text" id="birthday-name" placeholder="Nama Ultah" value="Febiana Baruroh Amalia Fahmi" class="bg-white/10 border border-white/20 p-3 rounded-lg text-white placeholder:text-white/50 focus:bg-white/20 outline-none">
-                            <input type="text" id="birthday-age" placeholder="Umur (Misal: 25)" value="26" class="bg-white/10 border border-white/20 p-3 rounded-lg text-white placeholder:text-white/50 focus:bg-white/20 outline-none">
+                            <input type="text" id="birthday-name" placeholder="Nama" value="Febiana Baruroh Amalia Fahmi" class="bg-white/10 border border-white/20 p-3 rounded-lg text-white placeholder:text-white/50 focus:bg-white/20 outline-none">
+                            <input type="text" id="birthday-age" placeholder="Umur" value="26" class="bg-white/10 border border-white/20 p-3 rounded-lg text-white placeholder:text-white/50 focus:bg-white/20 outline-none">
                         </div>
-                        <input type="text" id="date-text" placeholder="Tanggal Acara" value="9 Februari 2026" class="bg-white/10 border border-white/20 p-3 rounded-lg text-white placeholder:text-white/50 focus:bg-white/20 outline-none">
-                        <textarea id="wish-text" rows="2" placeholder="Tulis doa & harapan..." class="bg-white/10 border border-white/20 p-3 rounded-lg text-white placeholder:text-white/50 focus:bg-white/20 outline-none">Selamat ulang tahun yaaaa.Semoga diberkahi hidupnya. Disehatkan dan dilancarkan segala urusan dilapangkan hati dan diluaskan sabarnya, dipanjangkan dan diberkahi umurnya, dan semoga semua impianmu tercapai!🫶🏻🤲🏻</textarea>
+                        <input type="text" id="date-text" placeholder="Tanggal" value="9 Februari 2026" class="bg-white/10 border border-white/20 p-3 rounded-lg text-white placeholder:text-white/50 focus:bg-white/20 outline-none">
+                        <textarea id="wish-text" rows="2" placeholder="Doa & harapan..." class="bg-white/10 border border-white/20 p-3 rounded-lg text-white placeholder:text-white/50 focus:bg-white/20 outline-none">Selamat ulang tahun yaaaa.Semoga diberkahi hidupnya. Disehatkan dan dilancarkan segala urusan dilapangkan hati dan diluaskan sabarnya, dipanjangkan dan diberkahi umurnya, dan semoga semua impianmu tercapai!🫶🏻🤲🏻</textarea>
                         
                         <button id="start-btn" class="bg-white text-gray-900 hover:bg-gray-100 py-4 rounded-xl font-bold text-lg shadow-xl transition-all flex items-center justify-center gap-3 active:scale-95">
-                            <i class="fas fa-camera"></i> AMBIL 3 FOTO
+                            <i class="fas fa-camera"></i> AMBIL FOTO
                         </button>
                     </div>
                 </div>
@@ -167,19 +167,18 @@
 
             <!-- Preview Hasil -->
             <div id="result-area" class="w-full lg:w-1/3 opacity-50 transition-opacity duration-500 sticky top-8">
-                <div class="text-center mb-4 uppercase text-xs font-bold tracking-[0.2em] text-white/70">Pratinjau Strip (HD)</div>
+                <div class="text-center mb-4 uppercase text-xs font-bold tracking-[0.2em] text-white/70">Pratinjau Foto Strip</div>
                 <div class="strip-preview-container">
                     <canvas id="strip-preview-canvas"></canvas>
                 </div>
                 <div id="action-buttons" class="mt-6 flex flex-col gap-3 hidden">
                     <button id="share-btn" class="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:bg-blue-700 transition flex items-center justify-center gap-2 btn-action">
-                        <i class="fas fa-share-nodes"></i> BAGIKAN KE STORY / WA
+                        <i class="fas fa-share-nodes"></i> SHARE KE STORY / WA
                     </button>
                     <button id="download-btn" class="bg-white text-gray-800 px-8 py-4 rounded-xl font-bold shadow-lg hover:bg-gray-100 transition flex items-center justify-center gap-2 btn-action">
-                        <i class="fas fa-download"></i> SIMPAN KUALITAS HD
+                        <i class="fas fa-download"></i> SIMPAN HASIL HD
                     </button>
                 </div>
-                <p id="share-note" class="text-[10px] text-center mt-3 text-white/50 italic hidden">*Kualitas HD memerlukan waktu proses sedikit lebih lama.</p>
             </div>
         </div>
     </div>
@@ -194,7 +193,6 @@
         </div>
     </div>
 
-    <!-- Kanvas Internal untuk Render HD (2400x3600 untuk hasil super tajam) -->
     <canvas id="internal-canvas" class="hidden" width="2400" height="3600"></canvas>
 
     <script>
@@ -203,7 +201,6 @@
         const downloadBtn = document.getElementById('download-btn');
         const shareBtn = document.getElementById('share-btn');
         const actionButtons = document.getElementById('action-buttons');
-        const shareNote = document.getElementById('share-note');
         const countdownEl = document.getElementById('countdown');
         const flashEl = document.getElementById('flash-overlay');
         const statusEl = document.getElementById('capture-status');
@@ -214,10 +211,10 @@
         const TOTAL_PHOTOS = 3;
 
         const themes = {
-            classic: { bg: '#ffffff', text: '#333333', accent: '#666666', bodyBg: '#4a4a4a' },
-            vintage: { bg: '#f2ece8', text: '#4a3f35', accent: '#7d746d', bodyBg: '#7d746d' },
-            midnight: { bg: '#1a1a1a', text: '#ffffff', accent: '#d4af37', bodyBg: '#0f172a' },
-            rose: { bg: '#fff0f3', text: '#590d22', accent: '#ff4d6d', bodyBg: '#800f2f' }
+            classic: { bg: '#ffffff', text: '#333333', accent: '#666666', bodyBg: '#4a4a4a', decos: ['#ff9999', '#99ff99', '#9999ff'] },
+            vintage: { bg: '#f2ece8', text: '#4a3f35', accent: '#7d746d', bodyBg: '#7d746d', decos: ['#b48464', '#7d746d', '#4a3f35'] },
+            midnight: { bg: '#1a1a1a', text: '#ffffff', accent: '#d4af37', bodyBg: '#0f172a', decos: ['#d4af37', '#ffffff', '#555555'] },
+            rose: { bg: '#fff0f3', text: '#590d22', accent: '#ff4d6d', bodyBg: '#800f2f', decos: ['#ff4d6d', '#ffccd5', '#ffffff'] }
         };
 
         let currentTheme = 'classic';
@@ -243,27 +240,21 @@
 
         async function initCamera() {
             try {
-                // Mencoba mendapatkan resolusi HD dari kamera
                 const stream = await navigator.mediaDevices.getUserMedia({ 
-                    video: { 
-                        facingMode: 'user', 
-                        width: { ideal: 1920 }, 
-                        height: { ideal: 1080 } 
-                    } 
+                    video: { facingMode: 'user', width: { ideal: 1920 }, height: { ideal: 1080 } } 
                 });
                 video.srcObject = stream;
             } catch (err) {
-                showMessage("Kamera Error", "Gagal mengakses kamera. Pastikan izin kamera sudah diberikan.", "fa-video-slash");
+                showMessage("Kamera Error", "Gagal mengakses kamera.", "fa-video-slash");
             }
         }
 
         startBtn.addEventListener('click', async () => {
             capturedImages = [];
             startBtn.disabled = true;
-            startBtn.innerHTML = '<span class="loading-dots">RENDERING HD</span>';
+            startBtn.innerHTML = '<span class="loading-dots">MEMPROSES HD</span>';
             document.getElementById('result-area').style.opacity = "0.5";
             actionButtons.classList.add('hidden');
-            shareNote.classList.add('hidden');
 
             for (let i = 0; i < TOTAL_PHOTOS; i++) {
                 statusEl.innerText = `FOTO ${i+1} DARI ${TOTAL_PHOTOS}`;
@@ -278,10 +269,9 @@
             await renderFinalStrip();
             statusEl.classList.add('hidden');
             startBtn.disabled = false;
-            startBtn.innerHTML = '<i class="fas fa-camera"></i> AMBIL LAGI (HD)';
+            startBtn.innerHTML = '<i class="fas fa-camera"></i> AMBIL LAGI';
             document.getElementById('result-area').style.opacity = "1";
             actionButtons.classList.remove('hidden');
-            shareNote.classList.remove('hidden');
         });
 
         function runCountdown(sec) {
@@ -304,14 +294,11 @@
 
         function capturePhotoHD() {
             const tempCanvas = document.createElement('canvas');
-            // Gunakan resolusi tinggi untuk setiap frame foto (misal 1200x900)
             const targetWidth = 1200;
             const targetHeight = 900;
             tempCanvas.width = targetWidth;
             tempCanvas.height = targetHeight;
             const ctx = tempCanvas.getContext('2d');
-            
-            // Pengaturan kualitas render
             ctx.imageSmoothingEnabled = true;
             ctx.imageSmoothingQuality = 'high';
 
@@ -332,49 +319,177 @@
             ctx.translate(targetWidth, 0);
             ctx.scale(-1, 1);
             ctx.drawImage(video, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, targetWidth, targetHeight);
-            
-            // Simpan sebagai PNG atau JPEG kualitas tinggi
             capturedImages.push(tempCanvas.toDataURL('image/png'));
         }
 
-        function wrapText(ctx, text, x, y, maxWidth, lineHeight, maxHeight) {
-            const words = text.split(' ');
-            let line = '';
-            let lines = [];
-            for (let n = 0; n < words.length; n++) {
-                let testLine = line + words[n] + ' ';
-                if (ctx.measureText(testLine).width > maxWidth && n > 0) {
-                    lines.push(line);
-                    line = words[n] + ' ';
-                } else {
-                    line = testLine;
-                }
+        // DECORATION DRAWING FUNCTIONS
+        function drawBalloon(ctx, x, y, size, color) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.bezierCurveTo(x - size, y - size * 1.5, x + size, y - size * 1.5, x, y);
+            ctx.fillStyle = color;
+            ctx.fill();
+            // Tali
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x, y + size);
+            ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawFlower(ctx, x, y, size, color) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.fillStyle = color;
+            for (let i = 0; i < 5; i++) {
+                ctx.rotate(Math.PI * 2 / 5);
+                ctx.beginPath();
+                ctx.ellipse(0, -size/2, size/3, size/2, 0, 0, Math.PI * 2);
+                ctx.fill();
             }
-            lines.push(line);
-            if (lines.length * lineHeight > maxHeight && ctx.currentFontSize > 20) {
-                ctx.currentFontSize -= 2;
-                ctx.font = `italic ${ctx.currentFontSize}px "Plus Jakarta Sans"`;
-                return wrapText(ctx, text, x, y, maxWidth, ctx.currentFontSize + 12, maxHeight);
+            ctx.beginPath();
+            ctx.arc(0, 0, size/4, 0, Math.PI * 2);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function drawConfetti(ctx, x, y, w, h, color) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(Math.random() * Math.PI);
+            ctx.fillStyle = color;
+            ctx.fillRect(-w/2, -h/2, w, h);
+            ctx.restore();
+        }
+
+        async function renderFinalStrip() {
+            const ctx = internalCanvas.getContext('2d');
+            const w = internalCanvas.width;
+            const h = internalCanvas.height;
+            const theme = themes[currentTheme];
+            
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            ctx.fillStyle = theme.bodyBg;
+            ctx.fillRect(0, 0, w, h);
+            
+            const stripWidth = (w / 2) - 60;
+            await drawStrip(ctx, 40, 40, stripWidth);
+            await drawStrip(ctx, w/2 + 20, 40, stripWidth);
+            
+            const pCtx = previewCanvas.getContext('2d');
+            previewCanvas.width = 800;
+            previewCanvas.height = (h / w) * 800;
+            pCtx.imageSmoothingEnabled = true;
+            pCtx.imageSmoothingQuality = 'high';
+            pCtx.drawImage(internalCanvas, 0, 0, previewCanvas.width, previewCanvas.height);
+        }
+
+        async function drawStrip(ctx, startX, startY, width) {
+            const theme = themes[currentTheme];
+            const stripHeight = internalCanvas.height - 80;
+            const imgWidth = width - 80;
+            const imgHeight = imgWidth * 0.75;
+            const gap = 45;
+            const centerX = startX + width/2;
+
+            // Bingkai Dasar
+            ctx.fillStyle = theme.bg;
+            roundRect(ctx, startX, startY, width, stripHeight, 30);
+            ctx.fill();
+
+            // --- DEKORASI LATAR BELAKANG ---
+            // Balon di pojok atas
+            drawBalloon(ctx, startX + 60, startY + 100, 40, theme.decos[0]);
+            drawBalloon(ctx, startX + width - 60, startY + 100, 40, theme.decos[1]);
+            
+            // Bunga-bunga kecil di tepian
+            for(let i=0; i<6; i++) {
+                drawFlower(ctx, startX + 25, startY + 300 + (i * 500), 20, theme.decos[2]);
+                drawFlower(ctx, startX + width - 25, startY + 500 + (i * 500), 20, theme.decos[0]);
             }
-            for (let i = 0; i < lines.length; i++) {
-                ctx.fillText(lines[i], x, y + (i * lineHeight));
+
+            // Confetti acak
+            for(let i=0; i<30; i++) {
+                drawConfetti(ctx, startX + Math.random()*width, startY + Math.random()*stripHeight, 15, 8, theme.decos[Math.floor(Math.random()*3)]);
+            }
+
+            // Header Teks
+            ctx.fillStyle = theme.text;
+            ctx.font = 'bold 46px "Plus Jakarta Sans"';
+            ctx.textAlign = 'center';
+            ctx.fillText('✨ SPECIAL MOMENTS🤍 ✨', centerX, startY + 100);
+
+            // Render Foto
+            for (let i = 0; i < capturedImages.length; i++) {
+                const img = await loadImage(capturedImages[i]);
+                const yPos = startY + 180 + (i * (imgHeight + gap));
+                
+                // Border foto internal
+                ctx.fillStyle = 'rgba(0,0,0,0.05)';
+                ctx.fillRect(startX + 35, yPos - 5, imgWidth + 10, imgHeight + 10);
+                
+                ctx.drawImage(img, startX + 40, yPos, imgWidth, imgHeight);
+            }
+
+            // Footer
+            const footerY = startY + 180 + (3 * (imgHeight + gap)) + 30;
+            const name = document.getElementById('birthday-name').value || "Constance";
+            const ageInput = document.getElementById('birthday-age').value || "25";
+            const dateStr = document.getElementById('date-text').value || "9 May 2024";
+            const wishStr = document.getElementById('wish-text').value || "";
+
+            // Hati besar
+            drawAestheticHeart(ctx, centerX, footerY + 20, 160, theme.accent);
+            
+            // Balon samping nama
+            drawBalloon(ctx, startX + 100, footerY + 250, 30, theme.decos[1]);
+            drawBalloon(ctx, startX + width - 100, footerY + 250, 30, theme.decos[2]);
+
+            ctx.fillStyle = theme.text;
+            ctx.font = '56px "Plus Jakarta Sans"';
+            ctx.fillText("Happy Birthday", centerX, footerY + 280);
+
+            ctx.font = 'bold 100px "Playfair Display"';
+            drawResponsiveText(ctx, name, centerX, footerY + 400, width - 100, 100, '"Playfair Display"');
+            
+            ctx.font = 'italic 68px "Playfair Display"';
+            drawResponsiveText(ctx, `${ageInput}th Birthday`, centerX, footerY + 490, width - 100, 68, '"Playfair Display"');
+
+            ctx.font = '42px "Plus Jakarta Sans"';
+            ctx.fillStyle = theme.accent;
+            ctx.fillText(dateStr, centerX, footerY + 580);
+
+            // Wish Text dengan hiasan bunga di bawahnya
+            if (wishStr) {
+                const initialFontSize = 38;
+                ctx.currentFontSize = initialFontSize;
+                ctx.font = `italic ${initialFontSize}px "Plus Jakarta Sans"`;
+                ctx.fillStyle = theme.text;
+                const availableHeight = (startY + stripHeight - 100) - (footerY + 660);
+                wrapText(ctx, `"${wishStr}"`, centerX, footerY + 660, width - 160, ctx.currentFontSize + 14, availableHeight);
+                
+                drawFlower(ctx, centerX, startY + stripHeight - 60, 30, theme.decos[0]);
             }
         }
 
-        function drawResponsiveText(ctx, text, x, y, maxWidth, baseSize, fontFace) {
-            let fontSize = baseSize;
-            ctx.font = `${fontSize}px ${fontFace}`;
-            while (ctx.measureText(text).width > maxWidth && fontSize > 20) {
-                fontSize -= 2;
-                ctx.font = `${fontSize}px ${fontFace}`;
-            }
-            ctx.fillText(text, x, y);
-        }
-
-        function getOrdinal(n) {
-            let s = ["th", "st", "nd", "rd"],
-                v = n % 100;
-            return n + (s[(v - 20) % 10] || s[v] || s[0]);
+        // --- HELPER FUNCTIONS ---
+        function roundRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
         }
 
         function drawAestheticHeart(ctx, x, y, width, color) {
@@ -392,110 +507,38 @@
             ctx.restore();
         }
 
-        async function renderFinalStrip() {
-            const ctx = internalCanvas.getContext('2d');
-            const w = internalCanvas.width;
-            const h = internalCanvas.height;
-            const theme = themes[currentTheme];
-            
-            ctx.imageSmoothingEnabled = true;
-            ctx.imageSmoothingQuality = 'high';
-
-            ctx.fillStyle = theme.bodyBg;
-            ctx.fillRect(0, 0, w, h);
-            
-            // Render dua strip berdampingan
-            const stripWidth = (w / 2) - 60;
-            await drawStrip(ctx, 40, 40, stripWidth);
-            await drawStrip(ctx, w/2 + 20, 40, stripWidth);
-            
-            // Update preview dengan resolusi layar yang disesuaikan
-            const pCtx = previewCanvas.getContext('2d');
-            previewCanvas.width = 800; // Lebar standar preview
-            previewCanvas.height = (h / w) * 800;
-            pCtx.imageSmoothingEnabled = true;
-            pCtx.imageSmoothingQuality = 'high';
-            pCtx.drawImage(internalCanvas, 0, 0, previewCanvas.width, previewCanvas.height);
-        }
-
-        async function drawStrip(ctx, startX, startY, width) {
-            const theme = themes[currentTheme];
-            const stripHeight = internalCanvas.height - 80;
-            const imgWidth = width - 80;
-            const imgHeight = imgWidth * 0.75;
-            const gap = 40;
-            const cornerRadius = 30;
-            const centerX = startX + width/2;
-
-            // Bingkai Utama
-            ctx.fillStyle = theme.bg;
-            roundRect(ctx, startX, startY, width, stripHeight, cornerRadius);
-            ctx.fill();
-
-            // Header Teks
-            ctx.fillStyle = theme.text;
-            ctx.font = 'bold 44px "Plus Jakarta Sans"';
-            ctx.textAlign = 'center';
-            ctx.fillText('✨ SPECIAL MOMENTS ✨', centerX, startY + 90);
-
-            // Render 3 Foto
-            for (let i = 0; i < capturedImages.length; i++) {
-                const img = await loadImage(capturedImages[i]);
-                const yPos = startY + 150 + (i * (imgHeight + gap));
-                ctx.drawImage(img, startX + 40, yPos, imgWidth, imgHeight);
+        function wrapText(ctx, text, x, y, maxWidth, lineHeight, maxHeight) {
+            const words = text.split(' ');
+            let line = '';
+            let lines = [];
+            for (let n = 0; n < words.length; n++) {
+                let testLine = line + words[n] + ' ';
+                if (ctx.measureText(testLine).width > maxWidth && n > 0) {
+                    lines.push(line);
+                    line = words[n] + ' ';
+                } else {
+                    line = testLine;
+                }
             }
-
-            // Bagian Bawah (Footer)
-            const footerY = startY + 150 + (3 * (imgHeight + gap)) + 20;
-            const name = document.getElementById('birthday-name').value || "Constance";
-            const ageInput = document.getElementById('birthday-age').value || "25";
-            const dateStr = document.getElementById('date-text').value || "9 May 2024";
-            const wishStr = document.getElementById('wish-text').value || "";
-
-            let ageDisplay = ageInput;
-            if (!isNaN(ageInput) && ageInput.trim() !== "") {
-                ageDisplay = getOrdinal(parseInt(ageInput));
+            lines.push(line);
+            if (lines.length * lineHeight > maxHeight && ctx.currentFontSize > 24) {
+                ctx.currentFontSize -= 2;
+                ctx.font = `italic ${ctx.currentFontSize}px "Plus Jakarta Sans"`;
+                return wrapText(ctx, text, x, y, maxWidth, ctx.currentFontSize + 14, maxHeight);
             }
-
-            // Hati Estetis
-            drawAestheticHeart(ctx, centerX, footerY + 30, 160, theme.accent);
-
-            ctx.fillStyle = theme.text;
-            ctx.font = '56px "Plus Jakarta Sans"';
-            ctx.fillText("Happy Birthday", centerX, footerY + 280);
-
-            ctx.font = 'bold 96px "Playfair Display"';
-            drawResponsiveText(ctx, name, centerX, footerY + 390, width - 80, 96, '"Playfair Display"');
-            
-            ctx.font = 'italic 64px "Playfair Display"';
-            drawResponsiveText(ctx, `${ageDisplay} Birthday`, centerX, footerY + 480, width - 80, 64, '"Playfair Display"');
-
-            ctx.font = '40px "Plus Jakarta Sans"';
-            ctx.fillStyle = theme.accent;
-            ctx.fillText(dateStr, centerX, footerY + 570);
-
-            if (wishStr) {
-                const initialFontSize = 36;
-                ctx.currentFontSize = initialFontSize;
-                ctx.font = `italic ${initialFontSize}px "Plus Jakarta Sans"`;
-                ctx.fillStyle = theme.text;
-                const availableHeight = (startY + stripHeight - 50) - (footerY + 650);
-                wrapText(ctx, `"${wishStr}"`, centerX, footerY + 650, width - 160, ctx.currentFontSize + 12, availableHeight);
+            for (let i = 0; i < lines.length; i++) {
+                ctx.fillText(lines[i], x, y + (i * lineHeight));
             }
         }
 
-        function roundRect(ctx, x, y, width, height, radius) {
-            ctx.beginPath();
-            ctx.moveTo(x + radius, y);
-            ctx.lineTo(x + width - radius, y);
-            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-            ctx.lineTo(x + width, y + height - radius);
-            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-            ctx.lineTo(x + radius, y + height);
-            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-            ctx.lineTo(x, y + radius);
-            ctx.quadraticCurveTo(x, y, x + radius, y);
-            ctx.closePath();
+        function drawResponsiveText(ctx, text, x, y, maxWidth, baseSize, fontFace) {
+            let fontSize = baseSize;
+            ctx.font = `${fontSize}px ${fontFace}`;
+            while (ctx.measureText(text).width > maxWidth && fontSize > 24) {
+                fontSize -= 2;
+                ctx.font = `${fontSize}px ${fontFace}`;
+            }
+            ctx.fillText(text, x, y);
         }
 
         function loadImage(src) {
@@ -505,38 +548,33 @@
                 img.src = src;
             });
         }
+
         function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-        // Fitur Berbagi HD
         shareBtn.addEventListener('click', async () => {
             try {
-                // Konversi canvas HD ke blob (kualitas 1.0)
                 const dataUrl = internalCanvas.toDataURL('image/png', 1.0);
                 const response = await fetch(dataUrl);
                 const blob = await response.blob();
-                const file = new File([blob], `HD-Birthday-Strip-${Date.now()}.png`, { type: 'image/png' });
+                const file = new File([blob], `Party-Strip-${Date.now()}.png`, { type: 'image/png' });
 
                 if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
                     await navigator.share({
                         files: [file],
-                        title: 'Photo Strip HD',
-                        text: 'Momen ulang tahun spesial dalam kualitas HD!'
+                        title: 'Photo Strip Meriah',
+                        text: 'Momen ulang tahun yang sangat meriah!'
                     });
                 } else {
-                    showMessage("Berbagi Manual", "Browser tidak mendukung fitur bagi file. Hasil HD sudah tersimpan di memori sementara, silakan download.", "fa-triangle-exclamation");
+                    showMessage("Berbagi Manual", "Silakan download hasil foto.");
                 }
             } catch (err) {
-                if (err.name !== 'AbortError') {
-                    console.error('Error sharing:', err);
-                    showMessage("Gagal Berbagi", "Terjadi kesalahan saat memproses gambar HD.");
-                }
+                if (err.name !== 'AbortError') showMessage("Error", "Gagal memproses gambar.");
             }
         });
 
         downloadBtn.addEventListener('click', () => {
             const link = document.createElement('a');
-            link.download = `HD-Photo-Strip-${Date.now()}.png`;
-            // Pastikan download menggunakan kualitas tertinggi
+            link.download = `Festive-Strip-${Date.now()}.png`;
             link.href = internalCanvas.toDataURL('image/png', 1.0);
             link.click();
         });
