@@ -162,12 +162,11 @@
 
                     <div class="flex flex-col gap-4 w-full max-w-[400px]">
                         <div class="grid grid-cols-2 gap-3">
-                            <input type="text" id="birthday-name" placeholder="Nama" value="Febiana Baruroh Amalia Fahmi" class="bg-white/10 border border-white/20 p-3 rounded-lg text-white placeholder:text-white/50 focus:bg-white/20 outline-none">
-                            <input type="text" id="birthday-age" placeholder="Umur" value="26" class="bg-white/10 border border-white/20 p-3 rounded-lg text-white placeholder:text-white/50 focus:bg-white/20 outline-none">
+                            <input type="text" id="birthday-name" placeholder="Masukkan Nama" class="bg-white/10 border border-white/20 p-3 rounded-lg text-white placeholder:text-white/50 focus:bg-white/20 outline-none" required>
+                            <input type="text" id="birthday-age" placeholder="Umur" class="bg-white/10 border border-white/20 p-3 rounded-lg text-white placeholder:text-white/50 focus:bg-white/20 outline-none" required>
                         </div>
-                        <input type="text" id="date-text" placeholder="Tanggal" value="9 Februari 2026" class="bg-white/10 border border-white/20 p-3 rounded-lg text-white placeholder:text-white/50 focus:bg-white/20 outline-none">
-                        <textarea id="wish-text" rows="2" placeholder="Doa & harapan..." class="bg-white/10 border border-white/20 p-3 rounded-lg text-white placeholder:text-white/50 focus:bg-white/20 outline-none">Selamat ulang tahun yaaaa.Semoga diberkahi hidupnya. Disehatkan dan dilancarkan segala urusan dilapangkan hati dan diluaskan sabarnya, dipanjangkan dan diberkahi umurnya, dan semoga semua impianmu tercapai!🫶🏻🤲🏻</textarea>
-                        
+                        <input type="text" id="date-text" placeholder="Tanggal, Bulan dan Tahun" class="bg-white/10 border border-white/20 p-3 rounded-lg text-white placeholder:text-white/50 focus:bg-white/20 outline-none" required>
+                        <textarea id="wish-text" rows="2" placeholder="Doa & Ucapan..." class="bg-white/10 border border-white/20 p-3 rounded-lg text-white placeholder:text-white/50 focus:bg-white/20 outline-none" required></textarea>
                         <button id="start-btn" class="bg-white text-gray-900 hover:bg-gray-100 py-4 rounded-xl font-bold text-lg shadow-xl transition-all flex items-center justify-center gap-3 active:scale-95">
                             <i class="fas fa-camera"></i> AMBIL FOTO
                         </button>
@@ -186,7 +185,7 @@
                         <i class="fas fa-share-nodes"></i> SHARE KE STORY / WA
                     </button>
                     <button id="download-btn" class="bg-white text-gray-800 px-8 py-4 rounded-xl font-bold shadow-lg hover:bg-gray-100 transition flex items-center justify-center gap-2 btn-action">
-                        <i class="fas fa-download"></i> SIMPAN HASIL HD
+                        <i class="fas fa-download"></i> SIMPAN HASIL
                     </button>
                 </div>
             </div>
@@ -463,9 +462,9 @@
             }
 
             const footerY = startY + 180 + (3 * (imgHeight + gap)) + 30;
-            const name = document.getElementById('birthday-name').value || "Constance";
-            const ageInput = document.getElementById('birthday-age').value || "25";
-            const dateStr = document.getElementById('date-text').value || "9 May 2024";
+            const name = document.getElementById('birthday-name').value || "Nama Kosong";
+            const ageInput = document.getElementById('birthday-age').value || "Umur kosong";
+            const dateStr = document.getElementById('date-text').value || "Tanggal, Bulan dan Tahun Kosong";
             const wishStr = document.getElementById('wish-text').value || "";
 
             drawAestheticHeart(ctx, centerX, footerY + 20, 160, theme.accent);
